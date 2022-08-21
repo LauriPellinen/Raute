@@ -1,0 +1,132 @@
+<h1>Configuration-users</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <form class="form-horizontal">
+                <div class="card-body">
+                    <h4 class="card-title">Create a new User</h4>
+                    <div class="form-group row">
+                        <label for="fname" class="col-sm-3 text-end control-label col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="username_field"
+                                placeholder="User Name Here..." />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-end control-label col-form-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password_field"
+                                placeholder="Password Here..." />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lname" class="col-sm-3 text-end control-label col-form-label">Admin
+                            Privileges</label>
+                        <div class="col-md-9">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="is_admin_yes" name="radio-stacked"
+                                    required="" />
+                                <label class="form-check-label mb-0" for="is_admin_yes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="is_admin_no" name="radio-stacked"
+                                    required="" />
+                                <label class="form-check-label mb-0" for="is_admin_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Message</label>
+                        <div class="col-sm-9">
+                            <textarea id="message_box" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="button" id="submit_user" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="usererror" style="display: none;">
+                        Wrong username or password!
+                      </div>
+                      <div class="alert alert-success" role="alert" id="usersuccess" style="display: none;">
+                        A simple success alert—check it out!
+                      </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="dataTable_wrapper container-fluid dt-boostrap4">
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5 class="card-title mb-0">All Users</h5>
+                            </div>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>
+                                            <label class="customcheckbox mb-3">
+                                                <input type="checkbox" id="mainCheckbox" />
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Password</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="all_users_table" class="customtable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" id="delete_user_button" type="button" class="btn btn-primary" onclick="DeleteUserButton()">Delete Selected</button>
+                        <span id="delete_output"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite"></div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled" id="zero_config_previous">
+                                        <a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0"
+                                            class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                        <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0"
+                                            class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                        <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0"
+                                            class="page-link">2</a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                        <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0"
+                                            class="page-link">3</a>
+                                    </li>
+                                    <li class="paginate_button page-item next" id="zero_config_next">
+                                        <a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0"
+                                            class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../dist/js/pages/users/users.js"></script>
+
+<!--
+<script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+<script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+<script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+-->

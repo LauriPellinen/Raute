@@ -1,0 +1,104 @@
+<h1>Parameters</h1>
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  
+    <div class="col-md-6">
+      <div class="card">
+        <form class="form-horizontal">
+          <div id="parameters_box" class="card-body">
+            <h2 class="card-title"id="model-title">model-title</h2>
+            
+            <div class="form-group row">
+              <label
+                for="lname"
+                class="col-sm-3 text-end control-label col-form-label"
+                >Batch size</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="batch-input"
+                  
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label
+                for="lname"
+                class="col-sm-3 text-end control-label col-form-label"
+                >Epochs</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="epochs-input"
+                  
+                />
+              </div>
+              <div class="form-group row">
+                <label
+                  for="lname"
+                  class="col-sm-3 text-end control-label col-form-label"
+                  >Dataset</label
+                >
+                <div class="col-sm-9">
+                  <select
+                        class="select2 form-select shadow-none"
+                        style="width: 100%; height: 38px"
+                        id="dataset-name"
+                      >
+                        
+                      </select>
+            </div>
+            
+              
+              
+
+          <div class="border-top">
+            <div class="card-body">
+              <button type="button" class="btn btn-primary" id="btn-submit-NN">Save settings</button>
+
+              <button type="button" class="btn btn-primary" id="btn-stop-training">Stop training</button>
+              <button type="button" class="btn btn-primary" id="btn-start-training">Start training</button>
+            </div>
+              
+              
+
+        </form>
+        
+      </div>
+      <div class="alert alert-danger" role="alert" id="conferror" style="display: none;">
+        Wrong username or password!
+      </div>
+      <div class="alert alert-success" role="alert" id="confsuccess" style="display: none;">
+        A simple success alert—check it out!
+      </div>
+
+      <link href="../dist/css/style.min.css" rel="stylesheet" />
+    </div>
+  
+</div>
+<div class="card-body">
+
+  
+  <h3 id="text-field" style="display: none;">Saving Model</h3>
+     <div class="spinner-border" id="spinner" style="display: none;">
+       
+      <span class="visually-hidden">Loading...</span>
+  </div>
+  
+  
+   </div>
+
+<script src="../dist/js/common/functions.js"></script>
+<script src="../dist/js/common/getNames.js"></script>
+<script src="../dist/js/pages/configuration/sidebarButtons.js"></script>
+<script src="../dist/js/pages/configuration/startstopsaveButton.js"></script>
+<script src="../dist/js/pages/configuration/configuration.js"></script>
+
+
+ 

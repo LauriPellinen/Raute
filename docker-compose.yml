@@ -1,0 +1,211 @@
+version: '3'
+
+services:
+
+  gateway:
+    build: './website/gateway'
+    ports:
+      - 8080:8080
+    container_name: gateway
+    networks:
+      - api_network
+      - mongodb_network
+    volumes:
+      - ./website/gateway:/usr/src/app # Hot reload with nodemon (mounts ./gateway to docker directory)
+      - /usr/src/app/node_modules # Hot reload with nodemon (means: do no overwrite node_modules inside the container)
+      - ${PUBLIC_FOLDER}:/usr/src/app/public # Mounts ./frontend/public folder to container
+      - ${VIEWS_FOLDER}:/usr/src/app/views # Mounts ./frontend/views folder to container
+      - ${DATABASE_FOLDER}:/usr/src/app/database # Mounts ./database folder to container
+    # depends_on:
+    #   - mongodb
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - MONGO_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGODB_SERVER=${MONGODB_SERVER}
+      - MONGODB_DB=${MONGODB_USERS_DB}
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - DB_STRING=${DB_STRING}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - MONITORING=${MONITORING}
+      - CONFIGURATION=${CONFIGURATION}
+      - GRAFANA=${GRAFANA}
+      - DATA=${DATA}
+      - ACCOUNT=${ACCOUNT}
+      - CONSOLE=${CONSOLE}
+      - PORT_MONITORING=${PORT_MONITORING}
+
+  monitoring:
+    build: './website/services/monitoring'
+    ports:
+      - ${PORT_MONITORING} # 7000
+    container_name: monitoring
+    networks:
+      - api_network
+    volumes:
+      - ./website/services/monitoring:/usr/src/app
+      - /usr/src/app/node_modules
+      - ${PUBLIC_FOLDER}:/usr/src/app/public
+      - ${VIEWS_FOLDER}:/usr/src/app/views
+      - ${DATABASE_FOLDER}:/usr/src/app/database
+    environment:
+      - PORT=${PORT_MONITORING}
+      - NODE_ENV=${NODE_ENV}
+
+  configuration:
+    build: './website/services/configuration'
+    ports:
+      - ${PORT_CONFIGURATION} # 7001
+    container_name: configuration
+    networks:
+      - api_network
+    volumes:
+      - ./website/services/configuration:/usr/src/app
+      - /usr/src/app/node_modules
+      - ${PUBLIC_FOLDER}:/usr/src/app/public
+      - ${VIEWS_FOLDER}:/usr/src/app/views
+      - ${DATABASE_FOLDER}:/usr/src/app/database
+    environment:
+      - PORT=${PORT_CONFIGURATION}
+      - NODE_ENV=${NODE_ENV}
+
+  data:
+    build: './website/services/data'
+    ports:
+      - ${PORT_DATA} # 7002
+    container_name: data
+    networks:
+      - api_network
+    #  - team2-network-swarm
+    volumes:
+      - ./website/services/data:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - PORT=${PORT_DATA}
+      - NODE_ENV=${NODE_ENV}
+      - TEAM2API=${TEAM2API}
+
+  account:
+    build: './website/services/account'
+    ports:
+      - ${PORT_ACCOUNT} # 7003
+    container_name: account
+    networks:
+      - api_network
+      - mongodb_network
+    volumes:
+      - ./website/services/account:/usr/src/app
+      - /usr/src/app/node_modules
+      - ${DATABASE_FOLDER}:/usr/src/app/database
+    environment:
+      - MONGODB_SERVER=${MONGODB_SERVER}
+      #- MONGODB_DB_NAME=${MONGODB_DB_NAME}
+      - MONGO_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGODB_DB=${MONGODB_USERS_DB}
+      - PORT=${PORT_ACCOUNT}
+      - NODE_ENV=${NODE_ENV}
+
+  console:
+    build: './website/services/console'
+    ports:
+      - ${PORT_CONSOLE} # 7004
+    container_name: console
+    networks:
+      - mongodb_network
+    volumes:
+      - ./website/services/console:/usr/src/app
+      - /usr/src/app/node_modules
+      - ${DATABASE_FOLDER}:/usr/src/app/database
+    environment:
+      - MONGODB_SERVER=${MONGODB_SERVER}
+      #- MONGODB_DB_NAME=${MONGODB_DB_NAME}
+      - MONGO_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGODB_DB=${MONGODB_ACTIVITY_DB}
+      - PORT=${PORT_CONSOLE}
+      - NODE_ENV=${NODE_ENV}
+
+# grafana:
+#   image: grafana/grafana
+#   container_name: grafana
+#   restart: always
+#   logging:
+#     driver: "none"
+#   ports:
+#     - ${PORT_GRAFANA}:${PORT_GRAFANA} # 3000:3000
+#   environment:
+#     - GF_SERVER_ROOT_URL=http://grafana.server.name
+#     - GF_SECURITY_ADMIN_PASSWORD=admin123
+#     - GF_INSTALL_PLUGINS=grafana-simple-json-datasource, grafana-clock-panel,
+#       yesoreyeram-infinity-datasource, marcusolsson-json-datasource
+#     - GF_SECURITY_ALLOW_EMBEDDING=true
+#     - GF_AUTH_ANONYMOUS_ENABLED=true
+#   networks:
+#     - mongodb_network
+#     - api_network
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    logging:
+      driver: "none"
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+    - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+    - MONGO_PORT=${MONGO_PORT}
+    volumes:
+    - mongodb_data:/data/db
+    networks:
+    - mongodb_network
+    ports:
+    - 27017:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    #logging:
+    #  driver: "none"
+    environment:
+    - ME_CONFIG_MONGODB_SERVER=mongodb
+    - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+    - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USERNAME}
+    - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASSWORD}
+    - ME_CONFIG_BASICAUTH_USERNAME=${BASICAUTH_USERNAME}
+    - ME_CONFIG_BASICAUTH_PASSWORD=${BASICAUTH_PASSWORD}
+    volumes:
+    - mongodb_data:/data/db
+    depends_on:
+    - mongodb
+    networks:
+    - mongodb_network
+    ports:
+    - 8081:8081
+    healthcheck:
+      test:  wget --quiet --tries=3 --spider http://admin:admin123@10.10.10.60:8081 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+
+networks:
+  api_network:
+  mongodb_network:
+
+ # team2-network-swarm:
+  #  external: true
+

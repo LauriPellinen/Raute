@@ -1,0 +1,190 @@
+<nav class="navbar top-navbar navbar-expand-md navbar-dark">
+    <div class="navbar-header" data-logobg="skin5">
+      <!-- ============================================================== -->
+      <!-- Logo -->
+      <!-- ============================================================== -->
+      <a class="navbar-brand" href="/">
+        <!-- Logo icon -->
+        <b class="logo-icon ps-2">
+          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+          <!-- Dark Logo icon -->
+          <img
+            src="/assets/images/smalllogo.jpg"
+            alt="homepage"
+            class="light-logo"
+            width="50"
+            
+          />
+        </b>
+        <!--End Logo icon -->
+        <!-- Logo text -->
+        <span class="logo-text ms-2">
+          <!-- dark Logo text -->
+          <img
+            src="/assets/images/pieniteksti.jpg"
+            alt="homepage"
+            class="light-logo"
+          />
+        </span>
+        <!-- Logo icon -->
+        <!-- <b class="logo-icon"> -->
+        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+        <!-- Dark Logo icon -->
+        <!-- <img src="/assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
+        <!-- </b> -->
+        <!--End Logo icon -->
+      </a>
+      <!-- ============================================================== -->
+      <!-- End Logo -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Toggle which is visible on mobile only -->
+      <!-- ============================================================== -->
+      <a
+        class="nav-toggler waves-effect waves-light d-block d-md-none"
+        href="javascript:void(0)"
+        ><i class="ti-menu ti-close"></i
+      ></a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Logo -->
+    <!-- ============================================================== -->
+    <div
+      class="navbar-collapse collapse"
+      id="navbarSupportedContent"
+      data-navbarbg="skin5"
+    >
+      <!-- ============================================================== -->
+      <!-- toggle and nav items -->
+      <!-- ============================================================== -->
+      <ul class="navbar-nav float-start me-auto">
+        <li class="nav-item d-none d-lg-block">
+          <a
+            class="nav-link sidebartoggler waves-effect waves-light"
+            href="javascript:void(0)"
+            data-sidebartype="mini-sidebar"
+            ><i class="mdi mdi-menu font-24"></i
+          ></a>
+        </li>
+        <!-- ============================================================== -->
+        <!-- monitoring tab -->
+        <!-- ============================================================== -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span class="d-none d-md-block"
+              >Monitoring<i class="fa fa-angle-down"></i
+            ></span>
+            <span class="d-block d-md-none"
+              ><i class="fa fa-plus"></i
+            ></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/">Sheets</a></li>
+            <li><a class="dropdown-item" href="/statistics">Statistics</a></li>
+            <li><hr class="dropdown-divider" /></li>
+          </ul>
+        </li>
+        <!-- ============================================================== -->
+
+
+        <!-- ============================================================== -->
+        <!-- configuration tab -->
+        <!-- ============================================================== -->
+
+        <% if (admin) { %>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="d-none d-md-block"
+                >Configuration<i class="fa fa-angle-down"></i
+              ></span>
+              <span class="d-block d-md-none"
+                ><i class="fa fa-plus"></i
+              ></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/configuration">Neural Network</a></li>
+              <li><a class="dropdown-item" href="/configuration/users">Users</a></li>
+              <li><hr class="dropdown-divider" /></li>
+            </ul>
+          </li>
+          
+        <%}else {  %>
+        
+       <% } %>
+
+
+        
+
+      </ul>
+      <h3 style="color: white;">API Status</h3>
+      <svg height="50" width="50">
+        <circle cx="25" cy="25" r="20" stroke="black" stroke-width="1" fill="red" id="server-status" /> 
+      </svg> 
+      <!-- ============================================================== -->
+      <!-- Right side toggle and nav items -->
+      <!-- ============================================================== -->
+      <ul class="navbar-nav float-end">
+        
+        <!-- ============================================================== -->
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+        <li class="nav-item dropdown">
+          <a
+            class="
+              nav-link
+              dropdown-toggle
+              text-muted
+              waves-effect waves-dark
+              pro-pic
+            "
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="/assets/images/users/user1.png"
+              alt="user"
+              class="rounded-circle"
+              width="31"
+            />
+          </a>
+          
+          <ul
+            class="dropdown-menu dropdown-menu-end user-dd animated"
+            aria-labelledby="navbarDropdown"
+          >
+           
+           
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/users/logout"
+              ><i class="fa fa-power-off me-1 ms-1"></i> Logout</a
+            >
+            <div class="dropdown-divider"></div>
+            
+          </ul>
+        </li>
+        <!-- ============================================================== -->
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+      </ul>
+    </div>
+  </nav>
+
+  <script type="text/javascript" src="../dist/js/head.js"></script>

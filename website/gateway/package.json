@@ -1,0 +1,23 @@
+{
+    "name": "web_gateway",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Node.js gateway",
+    "main": "server.js",
+    "scripts": {
+      "dev": "nodemon --ignore public/assets/images/bull -L server.js",
+      "bull": "nodemon --ignore public/assets/images/bull -L server.js"
+    },
+    "dependencies": {
+      "axios": "0.24.0",
+      "express": "4.17.1",
+      "express-session": "1.17.2",
+      "mongoose": "6.0.13",
+      "connect-mongo": "4.6.0",
+      "dotenv": "10.0.0",
+      "ejs": "3.1.6",
+      "passport": "0.5.0",
+      "passport-local": "1.0.0",
+      "plotly": "1.0.6"
+    }
+  }
